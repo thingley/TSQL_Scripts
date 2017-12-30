@@ -2,19 +2,22 @@
 -- SCRIPT INITIALISATION AND VALIDATION
 -- ====================================================================================================
 
+SET NOCOUNT ON;
+SET XACT_ABORT ON;
+
 -- Constants
 DECLARE
-	@SQL_SERVER_COMP_LEVEL__2005		INT = 90
-	, @SQL_SERVER_COMP_LEVEL__2008		INT = 100
-	, @SQL_SERVER_COMP_LEVEL__2012		INT = 110
-	, @SEVERITY							INT = 15
-	, @STATE							INT = 1;
+	@SQL_SERVER_COMP_LEVEL__2005	INT	= 90
+	, @SQL_SERVER_COMP_LEVEL__2008	INT	= 100
+	, @SQL_SERVER_COMP_LEVEL__2012	INT	= 110
+	, @SEVERITY						INT	= 15
+	, @STATE						INT	= 1;
 
 -- Variables
 DECLARE
-	@CompatabilityLevel	INT = NULL
-	, @Database			NVARCHAR(MAX) = NULL
-	, @ErrorMessage		NVARCHAR(MAX) = NULL;
+	@CompatabilityLevel	INT				= NULL
+	, @Database			NVARCHAR(MAX)	= NULL
+	, @ErrorMessage		NVARCHAR(MAX)	= NULL;
 
 SELECT @CompatabilityLevel = d.[compatibility_level]
 FROM sys.databases d
@@ -58,20 +61,20 @@ END CATCH
 
 SPEnd:
     PRINT 'Script has completed!';
-	RETURN 0;
+	RETURN;
 
 SPError_SystemDatabase:
     RAISERROR('Script should not be run on a system database!', @SEVERITY , @STATE);
-    RETURN 1;
+    RETURN;
 
 SPError_ReportingDatabase:
     RAISERROR('Script should not be run on a report server database!', @SEVERITY , @STATE);
-    RETURN 2;
+    RETURN;
 
 SPError_DatabaseCompatabilityLevel:
 	RAISERROR('The database compatalibity level (version) is not compatible with this script!', @SEVERITY , @STATE);
-	RETURN 3;
+	RETURN;
 
 SPError_CatchBlock:
 	RAISERROR(@ErrorMessage, @SEVERITY , @STATE);
-	RETURN 4;
+	RETURN;

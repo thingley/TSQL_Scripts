@@ -6,14 +6,6 @@ UPDATE dbo.TSys_Setting SET
 	, LADescriptionLong = las.LADescriptionLong
 	, StoredProcedureSuffix = las.StoredProcedureSuffix
 	, LADescriptionExternal = las.LADescriptionExternal
-	--, HasProtocol = las.HasProtocol
-	--, HasGenericWebService = las.HasGenericWebService
-	--, IsChildren = las.IsChildren
-	--, GWSMastersCPLISAndClients = las.GWSMastersCPLIsAndClients 
-
-	-- , PaymentsSlack = las.PaymentsSlack
-	--, HasProtocol = las.HasProtocol
-	--, HasProviderPortal = las.HasProviderPortal
 FROM dbo.TRefSys_LASetting las
 WHERE las.ONSCode = '00AH-A';
 
